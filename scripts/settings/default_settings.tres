@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SettingsResource" load_steps=2 format=3 uid="uid://rri4wpvbfrk"]
+
+[ext_resource type="Script" uid="uid://csah8ujdhr37k" path="res://scripts/settings/settings_resource.gd" id="1_5eebg"]
+
+[resource]
+script = ExtResource("1_5eebg")
+fruit_transition_delay = 0.2
+level_transition_delay = 0.3
+press_any_key_delay = 0.25
+starting_time_per_level = 10.0
+time_per_level_multiplier = 0.9
+num_of_fruit_per_level = 6
+metadata/_custom_type_script = "uid://csah8ujdhr37k"

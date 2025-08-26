@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FruitStats" load_steps=3 format=3 uid="uid://d3bx7sxa6o76b"]
+
+[ext_resource type="Script" uid="uid://b1d4al4ji2hlo" path="res://fruit/fruit_stats.gd" id="1_bdkcj"]
+[ext_resource type="Texture2D" uid="uid://q8rl2jt4fpm4" path="res://assets/apple.png" id="2_jthvy"]
+
+[resource]
+script = ExtResource("1_bdkcj")
+fruit_name = "Apple"
+texture = ExtResource("2_jthvy")
+arrow_sequence = Array[int]([1, 2, 1, 3])
+metadata/_custom_type_script = "uid://b1d4al4ji2hlo"

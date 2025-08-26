@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbr7l4wtxixlk"]
+
+[ext_resource type="Texture2D" uid="uid://q8rl2jt4fpm4" path="res://assets/apple.png" id="1_ve554"]
+[ext_resource type="Script" uid="uid://cfjrurltgms7u" path="res://fruit/fruit.gd" id="2_ea1b1"]
+[ext_resource type="Resource" uid="uid://d3bx7sxa6o76b" path="res://fruit/fruit_types/apple.tres" id="3_ixw42"]
+
+[node name="Fruit" type="TextureRect"]
+custom_minimum_size = Vector2(30, 30)
+offset_right = 15.0
+offset_bottom = 15.0
+texture = ExtResource("1_ve554")
+script = ExtResource("2_ea1b1")
+stats = ExtResource("3_ixw42")

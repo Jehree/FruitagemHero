@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FruitCollection" load_steps=5 format=3 uid="uid://bfdspk6vgmuol"]
+
+[ext_resource type="Script" uid="uid://b1d4al4ji2hlo" path="res://fruit/fruit_stats.gd" id="1_ki1pk"]
+[ext_resource type="Script" uid="uid://dtmc2faw3ah73" path="res://fruit/fruit_collection.gd" id="2_4p2ko"]
+[ext_resource type="Resource" uid="uid://dndxae2qxmdyg" path="res://fruit/fruit_types/lemon.tres" id="2_e361c"]
+[ext_resource type="Resource" uid="uid://bsmomhljnjtn3" path="res://fruit/fruit_types/orange.tres" id="3_yojje"]
+
+[resource]
+script = ExtResource("2_4p2ko")
+name = "That's Tart!"
+selection_weight = 0.4
+fruit_whitelist = Array[ExtResource("1_ki1pk")]([ExtResource("2_e361c"), ExtResource("3_yojje")])
+fruit_blocklist = Array[ExtResource("1_ki1pk")]([])
+metadata/_custom_type_script = "uid://dtmc2faw3ah73"

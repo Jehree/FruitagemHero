@@ -1,0 +1,354 @@
+[gd_scene load_steps=23 format=3 uid="uid://civq5drx7gir"]
+
+[ext_resource type="Script" uid="uid://bwnh47j5tm6yx" path="res://game_controller.gd" id="1_215e1"]
+[ext_resource type="Script" uid="uid://dq6udfqsmudm" path="res://fruit/fruit_controller.gd" id="1_eow3j"]
+[ext_resource type="PackedScene" uid="uid://dbr7l4wtxixlk" path="res://fruit/fruit.tscn" id="1_ryrav"]
+[ext_resource type="FontFile" uid="uid://njkrayhh1ra5" path="res://assets/fonts/pixel.ttf" id="2_feb5d"]
+[ext_resource type="Script" uid="uid://dtmc2faw3ah73" path="res://fruit/fruit_collection.gd" id="2_mfdv2"]
+[ext_resource type="Script" uid="uid://50v5xswjhs2u" path="res://arrow/arrow_controller.gd" id="3_7jktm"]
+[ext_resource type="Resource" uid="uid://hba40mkroh88" path="res://fruit/fruit_collections/default.tres" id="3_iotsf"]
+[ext_resource type="Resource" uid="uid://do6f0otu67rw" path="res://fruit/fruit_types/test_fruit.tres" id="3_ryrav"]
+[ext_resource type="Resource" uid="uid://dk2ounipsay2" path="res://fruit/fruit_collections/test_apple_collection.tres" id="4_lc2xo"]
+[ext_resource type="PackedScene" uid="uid://dkaoaq8quwgtj" path="res://arrow/arrow.tscn" id="4_ryrav"]
+[ext_resource type="Resource" uid="uid://bn6fa1gi432i1" path="res://fruit/fruit_collections/test_arrow_collection.tres" id="5_215e1"]
+[ext_resource type="Script" uid="uid://8rgqikrla5uu" path="res://score_tracker.gd" id="6_e8heu"]
+[ext_resource type="Script" uid="uid://7mddms3tcb4n" path="res://fruit/tool_get_all_fruit_stats.gd" id="7_eow3j"]
+[ext_resource type="Script" uid="uid://0vunuivoo1pt" path="res://game_score_display.gd" id="8_rvswv"]
+[ext_resource type="Script" uid="uid://b1d4al4ji2hlo" path="res://fruit/fruit_stats.gd" id="10_mfdv2"]
+[ext_resource type="Resource" uid="uid://d3bx7sxa6o76b" path="res://fruit/fruit_types/apple.tres" id="11_iotsf"]
+[ext_resource type="Script" uid="uid://cvhq5nlc75f5j" path="res://level_timer.gd" id="12_7sc4i"]
+[ext_resource type="Script" uid="uid://cj4ltv4t2aipt" path="res://start_screen.gd" id="12_80cx4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80cx4"]
+bg_color = Color(0.0666667, 0.0588235, 0.054902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2o6t"]
+bg_color = Color(0.952941, 0.839216, 0.686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8heu"]
+bg_color = Color(0.168627, 0.117647, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvswv"]
+bg_color = Color(0.952941, 0.839216, 0.686275, 1)
+
+[node name="Game" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameController" type="Node" parent="." node_paths=PackedStringArray("game_screen", "start_screen", "fruit_controller", "level_timer")]
+script = ExtResource("1_215e1")
+game_screen = NodePath("../PanelContainer/MarginContainer/GameScreen")
+start_screen = NodePath("../PanelContainer/MarginContainer/StartScreen")
+fruit_collections = Array[ExtResource("2_mfdv2")]([ExtResource("3_iotsf"), ExtResource("4_lc2xo"), ExtResource("5_215e1")])
+number_of_fruit_in_level = 6
+fruit_controller = NodePath("../PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController")
+level_timer = NodePath("../PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer")
+level_transition_delay = 0.5
+starting_time_per_level = 8.0
+time_per_level_multiplier = 0.9
+
+[node name="ScoreTracker" type="Node" parent="." node_paths=PackedStringArray("level_timer", "game_controller", "arrow_controller")]
+script = ExtResource("6_e8heu")
+level_timer = NodePath("../PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer")
+game_controller = NodePath("../GameController")
+arrow_controller = NodePath("../PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowController")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_80cx4")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="GameScreen" type="Control" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/GameScreen"]
+layout_mode = 2
+offset_right = 288.0
+offset_bottom = 148.0
+alignment = 1
+
+[node name="FruitController" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer" node_paths=PackedStringArray("arrow_controller", "fruit_name_label")]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+script = ExtResource("1_eow3j")
+fruit_scene = ExtResource("1_ryrav")
+arrow_controller = NodePath("../ArrowController")
+fruit_name_label = NodePath("../Panel/MarginContainer/Label")
+
+[node name="Fruit" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController" instance=ExtResource("1_ryrav")]
+layout_mode = 2
+
+[node name="Fruit2" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController" instance=ExtResource("1_ryrav")]
+layout_mode = 2
+
+[node name="Fruit3" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController" instance=ExtResource("1_ryrav")]
+layout_mode = 2
+
+[node name="Fruit4" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController" instance=ExtResource("1_ryrav")]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -16.5
+offset_right = 33.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Panel/MarginContainer"]
+modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_feb5d")
+theme_override_font_sizes/font_size = 18
+text = "Fruit!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArrowController" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+theme_override_constants/separation = 1
+alignment = 1
+script = ExtResource("3_7jktm")
+arrow_scene = ExtResource("4_ryrav")
+
+[node name="Arrow" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowController" instance=ExtResource("4_ryrav")]
+layout_mode = 2
+
+[node name="Arrow2" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowController" instance=ExtResource("4_ryrav")]
+layout_mode = 2
+
+[node name="Arrow3" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowController" instance=ExtResource("4_ryrav")]
+layout_mode = 2
+
+[node name="GameTimer" type="ProgressBar" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer" node_paths=PackedStringArray("timer")]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_e8heu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rvswv")
+step = 0.001
+value = 50.0
+show_percentage = false
+script = ExtResource("12_7sc4i")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Padding" type="Control" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Score" type="Panel" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Score"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -16.5
+offset_right = 33.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Score/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Score/MarginContainer/HBoxContainer"]
+modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_feb5d")
+theme_override_font_sizes/font_size = 9
+text = "Score:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Score/MarginContainer/HBoxContainer" node_paths=PackedStringArray("score_tracker")]
+modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_feb5d")
+theme_override_font_sizes/font_size = 9
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_rvswv")
+score_tracker = NodePath("../../../../../../../../ScoreTracker")
+
+[node name="StartScreen" type="Control" parent="PanelContainer/MarginContainer" node_paths=PackedStringArray("menu_label", "press_any_key_timer", "press_any_key_label", "score_label", "score_tracker")]
+visible = false
+layout_mode = 2
+script = ExtResource("12_80cx4")
+menu_label = NodePath("VBoxContainer/FruitHeroPanel/MarginContainer/Label")
+press_any_key_timer = NodePath("Timer")
+press_any_key_label = NodePath("VBoxContainer/AnyKeyPanel/MarginContainer/Label")
+score_label = NodePath("VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/ScoreValue")
+score_tracker = NodePath("../../../ScoreTracker")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/StartScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="FruitHeroPanel" type="Panel" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/FruitHeroPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -16.5
+offset_right = 33.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/FruitHeroPanel/MarginContainer"]
+modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_feb5d")
+theme_override_font_sizes/font_size = 18
+text = "Fruit Hero!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ScorePanel" type="Panel" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/ScorePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -16.5
+offset_right = 33.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/ScorePanel/MarginContainer"]
+layout_mode = 2
+
+[node name="ScoreText" type="Label" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer"]
+modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_feb5d")
+theme_override_font_sizes/font_size = 18
+text = "Score:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/ScorePanel/MarginContainer/HBoxContainer"]
+modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_feb5d")
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="AnyKeyPanel" type="Panel" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/AnyKeyPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -16.5
+offset_right = 33.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/AnyKeyPanel/MarginContainer"]
+modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_feb5d")
+theme_override_font_sizes/font_size = 18
+text = "Press any key..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="PanelContainer/MarginContainer/StartScreen"]
+one_shot = true
+
+[node name="AllFruitStatsContainer" type="Node" parent="."]
+script = ExtResource("7_eow3j")
+_stats = Array[ExtResource("10_mfdv2")]([ExtResource("11_iotsf"), ExtResource("3_ryrav")])

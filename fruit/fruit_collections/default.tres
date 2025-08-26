@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="FruitCollection" load_steps=3 format=3 uid="uid://hba40mkroh88"]
+
+[ext_resource type="Script" uid="uid://b1d4al4ji2hlo" path="res://fruit/fruit_stats.gd" id="1_st62o"]
+[ext_resource type="Script" uid="uid://dtmc2faw3ah73" path="res://fruit/fruit_collection.gd" id="2_clkbp"]
+
+[resource]
+script = ExtResource("2_clkbp")
+name = "Fruit!"
+selection_weight = 1.0
+fruit_whitelist = Array[ExtResource("1_st62o")]([])
+fruit_blocklist = Array[ExtResource("1_st62o")]([])
+metadata/_custom_type_script = "uid://dtmc2faw3ah73"
