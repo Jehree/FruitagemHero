@@ -55,14 +55,26 @@ script = ExtResource("1_215e1")
 game_screen = NodePath("../PanelContainer/MarginContainer/GameScreen")
 start_screen = NodePath("../PanelContainer/MarginContainer/StartScreen")
 fruit_collections = Array[ExtResource("2_mfdv2")]([ExtResource("3_iotsf"), ExtResource("4_e36ub"), ExtResource("5_hb5m1")])
-fruit_controller = NodePath("../PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController")
+fruit_controller = NodePath("FruitController")
 level_timer = NodePath("../PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer")
 
-[node name="ScoreTracker" type="Node" parent="." node_paths=PackedStringArray("level_timer", "game_controller", "arrow_controller")]
+[node name="ScoreTracker" type="Node" parent="GameController" node_paths=PackedStringArray("level_timer", "game_controller", "arrow_controller")]
 script = ExtResource("6_e8heu")
-level_timer = NodePath("../PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer")
-game_controller = NodePath("../GameController")
-arrow_controller = NodePath("../PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowController")
+level_timer = NodePath("../../PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer")
+game_controller = NodePath("..")
+arrow_controller = NodePath("../ArrowController")
+
+[node name="FruitController" type="Node" parent="GameController" node_paths=PackedStringArray("arrow_controller", "fruit_name_label", "fruit_parent_node")]
+script = ExtResource("1_eow3j")
+fruit_scene = ExtResource("1_ryrav")
+arrow_controller = NodePath("../ArrowController")
+fruit_name_label = NodePath("../../PanelContainer/MarginContainer/GameScreen/VBoxContainer/Panel/MarginContainer/FruitNameLabel")
+fruit_parent_node = NodePath("../../PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitContainer")
+
+[node name="ArrowController" type="Node" parent="GameController" node_paths=PackedStringArray("arrow_parent_node")]
+script = ExtResource("3_7jktm")
+arrow_parent_node = NodePath("../../PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowContainer")
+arrow_scene = ExtResource("4_ryrav")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -81,37 +93,37 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="GameScreen" type="Control" parent="PanelContainer/MarginContainer"]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/GameScreen"]
-layout_mode = 2
-offset_right = 288.0
-offset_bottom = 148.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 1
 
-[node name="FruitController" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer" node_paths=PackedStringArray("arrow_controller", "fruit_name_label")]
+[node name="FruitContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 2
 alignment = 1
-script = ExtResource("1_eow3j")
-fruit_scene = ExtResource("1_ryrav")
-arrow_controller = NodePath("../ArrowController")
-fruit_name_label = NodePath("../Panel/MarginContainer/Label")
 
-[node name="Fruit" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController" instance=ExtResource("1_ryrav")]
+[node name="Fruit" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitContainer" instance=ExtResource("1_ryrav")]
 layout_mode = 2
 
-[node name="Fruit2" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController" instance=ExtResource("1_ryrav")]
+[node name="Fruit2" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitContainer" instance=ExtResource("1_ryrav")]
 layout_mode = 2
 
-[node name="Fruit3" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController" instance=ExtResource("1_ryrav")]
+[node name="Fruit3" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitContainer" instance=ExtResource("1_ryrav")]
 layout_mode = 2
 
-[node name="Fruit4" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitController" instance=ExtResource("1_ryrav")]
+[node name="Fruit4" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/FruitContainer" instance=ExtResource("1_ryrav")]
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
 
@@ -128,37 +140,35 @@ offset_right = 33.5
 offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_bottom = 1
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Panel/MarginContainer"]
+[node name="FruitNameLabel" type="Label" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Panel/MarginContainer"]
 modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_feb5d")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 9
 text = "Fruit!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ArrowController" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
+[node name="ArrowContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 theme_override_constants/separation = 5
 alignment = 1
-script = ExtResource("3_7jktm")
-arrow_scene = ExtResource("4_ryrav")
 
-[node name="Arrow" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowController" instance=ExtResource("4_ryrav")]
+[node name="Arrow" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowContainer" instance=ExtResource("4_ryrav")]
 layout_mode = 2
 
-[node name="Arrow2" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowController" instance=ExtResource("4_ryrav")]
+[node name="Arrow2" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowContainer" instance=ExtResource("4_ryrav")]
 layout_mode = 2
 
-[node name="Arrow3" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowController" instance=ExtResource("4_ryrav")]
+[node name="Arrow3" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowContainer" instance=ExtResource("4_ryrav")]
 layout_mode = 2
 
-[node name="GameTimer" type="ProgressBar" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer" node_paths=PackedStringArray("timer")]
-custom_minimum_size = Vector2(0, 4)
+[node name="GameTimer" type="ProgressBar" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer" node_paths=PackedStringArray("game_timer", "bar_tick_timer")]
+custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_e8heu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_rvswv")
@@ -166,18 +176,22 @@ step = 0.001
 value = 50.0
 show_percentage = false
 script = ExtResource("12_7sc4i")
-timer = NodePath("Timer")
+game_timer = NodePath("GameTimer")
+bar_tick_timer = NodePath("BarTickTimer")
 
-[node name="Timer" type="Timer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer"]
+[node name="GameTimer" type="Timer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer"]
 wait_time = 5.0
 one_shot = true
+
+[node name="BarTickTimer" type="Timer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer"]
+autostart = true
 
 [node name="Padding" type="Control" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="Score" type="Panel" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 7)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
 
@@ -194,6 +208,7 @@ offset_right = 33.5
 offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 2
 theme_override_constants/margin_bottom = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/Score/MarginContainer"]
@@ -205,7 +220,7 @@ modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_feb5d")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 5
 text = "Score:"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -215,22 +230,21 @@ modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_feb5d")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 5
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("8_rvswv")
-score_tracker = NodePath("../../../../../../../../ScoreTracker")
+score_tracker = NodePath("../../../../../../../../GameController/ScoreTracker")
 
 [node name="StartScreen" type="Control" parent="PanelContainer/MarginContainer" node_paths=PackedStringArray("menu_label", "press_any_key_timer", "press_any_key_label", "score_label", "score_tracker")]
-visible = false
 layout_mode = 2
 script = ExtResource("12_80cx4")
 menu_label = NodePath("VBoxContainer/FruitHeroPanel/MarginContainer/Label")
 press_any_key_timer = NodePath("PressAnyKeyTimer")
 press_any_key_label = NodePath("VBoxContainer/AnyKeyPanel/MarginContainer/Label")
 score_label = NodePath("VBoxContainer/ScorePanel/MarginContainer/HBoxContainer/ScoreValue")
-score_tracker = NodePath("../../../ScoreTracker")
+score_tracker = NodePath("../../../GameController/ScoreTracker")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/StartScreen"]
 layout_mode = 1
@@ -242,7 +256,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="FruitHeroPanel" type="Panel" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
 
@@ -259,15 +273,15 @@ offset_right = 33.5
 offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_bottom = 1
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/FruitHeroPanel/MarginContainer"]
 modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_feb5d")
-theme_override_font_sizes/font_size = 18
-text = "Fruit Hero!"
+theme_override_font_sizes/font_size = 9
+text = "Fruitagem Hero!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -276,7 +290,7 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="ScorePanel" type="Panel" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
 
@@ -293,7 +307,7 @@ offset_right = 33.5
 offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_bottom = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/ScorePanel/MarginContainer"]
 layout_mode = 2
@@ -303,7 +317,7 @@ modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_feb5d")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 9
 text = "Score:"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -313,7 +327,7 @@ modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_feb5d")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 9
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -323,7 +337,7 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="AnyKeyPanel" type="Panel" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
 
@@ -340,14 +354,14 @@ offset_right = 33.5
 offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_bottom = 1
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/StartScreen/VBoxContainer/AnyKeyPanel/MarginContainer"]
 modulate = Color(0.0666667, 0.0588235, 0.054902, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_feb5d")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 9
 text = "Press any key..."
 horizontal_alignment = 1
 vertical_alignment = 1

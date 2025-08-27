@@ -1,9 +1,10 @@
-extends HBoxContainer
+extends Node
 class_name ArrowController
 
 signal slice_success
 signal slice_error
 
+@export var arrow_parent_node: Node
 @export var arrow_scene: PackedScene
 var arrows: Array[Arrow]
 
@@ -53,7 +54,7 @@ func _get_next_active_arrow() -> Arrow:
 
 
 func clear_arrows() -> void:
-	for child in get_children():
+	for child in arrow_parent_node.get_children():
 		if child is not Arrow: continue
 		child.queue_free()
 	
@@ -64,7 +65,7 @@ func spawn_arrows(arrows_to_spawn: Array[Arrow.ArrowType]) -> void:
 	for type in arrows_to_spawn:
 		var arrow: Arrow = arrow_scene.instantiate()
 		arrow.type = type
-		add_child(arrow)
+		arrow_parent_node.add_child(arrow)
 		arrows.append(arrow)
 
 

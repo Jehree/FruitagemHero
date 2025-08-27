@@ -16,14 +16,14 @@ var is_transitioning: bool = false
 func _ready() -> void:
 	start_screen.start_game_requested.connect(_on_start_game_requested)
 	fruit_controller.level_completed.connect(_on_level_completed)
-	level_timer.timer.timeout.connect(_on_level_timer_timeout)
+	level_timer.game_timer.timeout.connect(_on_level_timer_timeout)
 	_switch_to_start_screen()
 
 
 func _on_level_completed() -> void:
 	is_transitioning = true
 	
-	level_timer.timer.paused = true
+	level_timer.game_timer.paused = true
 	await get_tree().create_timer(Settings.settings.level_transition_delay).timeout
 	_new_level()
 	
@@ -71,9 +71,8 @@ func _new_level(is_first_level: bool = false) -> void:
 	fruit_controller.spawn_fruit(random_fruit_stats)
 	fruit_controller.setup_next_fruit_arrows(true)
 	
-	level_timer.timer.wait_time = level_time
-	level_timer.timer.paused = false
-	level_timer.timer.start()
+	level_timer.game_timer.wait_time = level_time
+	level_timer.start_game_timer()
 	
 	if not is_first_level:
 		level_advanced.emit()

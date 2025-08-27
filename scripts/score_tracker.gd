@@ -20,6 +20,7 @@ func _ready() -> void:
 	game_controller.game_started.connect(_on_game_start)
 	game_controller.level_advanced.connect(_on_level_advanced)
 	arrow_controller.slice_error.connect(_on_slice_error)
+	arrow_controller.slice_success.connect(_on_slice_success)
 
 
 func _on_game_start() -> void:
@@ -28,13 +29,16 @@ func _on_game_start() -> void:
 
 
 func _on_level_advanced() -> void:
-	score += 100
 	score += int(level_timer.value)
 	
 	if not error_this_level:
 		score += 50
 	
 	error_this_level = false
+
+
+func _on_slice_success() -> void:
+	score += int(100 / Settings.settings.num_of_fruit_per_level)
 
 
 func _on_slice_error() -> void:

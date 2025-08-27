@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bas7rn57hhfjp" path="res://assets/arrow_inactive_up.png" id="3_d2qln"]
 
 [node name="Arrow" type="TextureRect"]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(15, 15)
 offset_right = 15.0
 offset_bottom = 15.0
 size_flags_horizontal = 4

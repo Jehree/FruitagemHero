@@ -5,6 +5,7 @@ class_name SettingsResource
 @export var fruit_transition_delay: float
 @export var level_transition_delay: float
 @export var press_any_key_delay: float
+@export var timer_bar_tick_delay: float
 
 @export_category("Difficulty")
 @export var starting_time_per_level: float

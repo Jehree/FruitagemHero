@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends Node
 class_name FruitController
 
 
@@ -7,6 +7,8 @@ signal level_completed
 @export var fruit_scene: PackedScene
 @export var arrow_controller: ArrowController
 @export var fruit_name_label: Label
+@export var fruit_parent_node: Node
+
 var all_fruit: Array[Fruit]
 
 
@@ -18,12 +20,12 @@ func spawn_fruit(fruit_stats: Array[FruitStats]) -> void:
 	for stats in fruit_stats:
 		var fruit: Fruit = fruit_scene.instantiate()
 		fruit.stats = stats
-		add_child(fruit)
+		fruit_parent_node.add_child(fruit)
 		all_fruit.append(fruit)
 
 
 func clear_fruit() -> void:
-	for f in get_children():
+	for f in fruit_parent_node.get_children():
 		if f is not Fruit: continue
 		f.queue_free()
 	all_fruit.clear()
