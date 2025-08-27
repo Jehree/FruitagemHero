@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://civq5drx7gir"]
+[gd_scene load_steps=29 format=3 uid="uid://civq5drx7gir"]
 
 [ext_resource type="Script" uid="uid://bwnh47j5tm6yx" path="res://scripts/game_controller.gd" id="1_215e1"]
 [ext_resource type="Script" uid="uid://dq6udfqsmudm" path="res://fruit/fruit_controller.gd" id="1_eow3j"]
@@ -22,6 +22,8 @@
 [ext_resource type="Resource" uid="uid://f10q8chcyhgv" path="res://fruit/fruit_types/blueberry.tres" id="16_e8heu"]
 [ext_resource type="Resource" uid="uid://dndxae2qxmdyg" path="res://fruit/fruit_types/lemon.tres" id="17_rvswv"]
 [ext_resource type="Resource" uid="uid://bsmomhljnjtn3" path="res://fruit/fruit_types/orange.tres" id="18_boyg6"]
+[ext_resource type="Resource" uid="uid://drbxrvauo0oka" path="res://fruit/fruit_types/banana.tres" id="20_f1jbl"]
+[ext_resource type="Resource" uid="uid://ebixcsyva1as" path="res://fruit/fruit_types/dragonfruit.tres" id="22_vaj68"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80cx4"]
 bg_color = Color(0.0666667, 0.0588235, 0.054902, 1)
@@ -141,7 +143,7 @@ vertical_alignment = 1
 [node name="ArrowController" type="HBoxContainer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
-theme_override_constants/separation = 1
+theme_override_constants/separation = 5
 alignment = 1
 script = ExtResource("3_7jktm")
 arrow_scene = ExtResource("4_ryrav")
@@ -355,4 +357,4 @@ one_shot = true
 
 [node name="AllFruitStatsContainer" type="Node" parent="."]
 script = ExtResource("7_eow3j")
-_stats = Array[ExtResource("10_mfdv2")]([ExtResource("11_iotsf"), ExtResource("16_e8heu"), ExtResource("17_rvswv"), ExtResource("18_boyg6")])
+_stats = Array[ExtResource("10_mfdv2")]([ExtResource("11_iotsf"), ExtResource("20_f1jbl"), ExtResource("16_e8heu"), ExtResource("22_vaj68"), ExtResource("17_rvswv"), ExtResource("18_boyg6")])
