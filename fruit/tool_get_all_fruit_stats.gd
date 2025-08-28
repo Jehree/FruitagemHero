@@ -3,7 +3,7 @@ extends Node
 class_name AllFruitStatsContainer
 
 
-@export_tool_button("Get All FruitStat Resources") var action = _get_all_fruit_stats
+@export_tool_button("Get All FruitStat Resources") var action: Callable = _get_all_fruit_stats
 
 @export var _stats: Array[FruitStats] = []
 static var stats: Array[FruitStats]

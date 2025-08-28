@@ -23,7 +23,7 @@ func _ready() -> void:
 func get_rotated_texture(t: Texture2D) -> Texture2D:
 	if type == ArrowType.UP: return t
 	
-	var image = t.get_image()
+	var image: Image = t.get_image()
 	
 	if type == ArrowType.DOWN:
 		image.rotate_180()

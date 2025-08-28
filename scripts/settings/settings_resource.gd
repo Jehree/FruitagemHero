@@ -11,3 +11,4 @@ class_name SettingsResource
 @export var starting_time_per_level: float
 @export var time_per_level_multiplier: float
 @export var num_of_fruit_per_level: int
+@export var time_back_on_successful_slice: float

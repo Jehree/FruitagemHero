@@ -4,4 +4,4 @@ extends Label
 
 
 func _ready() -> void:
-	score_tracker.score_updated.connect(func(score: int): text = str(score))
+	score_tracker.score_updated.connect(func(score: int) -> void: text = str(score))

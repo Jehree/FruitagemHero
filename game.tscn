@@ -167,7 +167,7 @@ layout_mode = 2
 [node name="Arrow3" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/ArrowContainer" instance=ExtResource("4_ryrav")]
 layout_mode = 2
 
-[node name="GameTimer" type="ProgressBar" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer" node_paths=PackedStringArray("game_timer", "bar_tick_timer")]
+[node name="GameTimer" type="ProgressBar" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer" node_paths=PackedStringArray("game_timer", "bar_tick_timer", "arrow_controller")]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_e8heu")
@@ -178,6 +178,7 @@ show_percentage = false
 script = ExtResource("12_7sc4i")
 game_timer = NodePath("GameTimer")
 bar_tick_timer = NodePath("BarTickTimer")
+arrow_controller = NodePath("../../../../../GameController/ArrowController")
 
 [node name="GameTimer" type="Timer" parent="PanelContainer/MarginContainer/GameScreen/VBoxContainer/GameTimer"]
 wait_time = 5.0

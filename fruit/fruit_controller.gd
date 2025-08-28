@@ -44,10 +44,10 @@ func _setup_fruit_arrows(fruit: Fruit, skip_delay: bool = false) -> void:
 
 
 func _on_slice_success() -> void:
-	var current_fruit = _get_next_active_fruit()
+	var current_fruit: Fruit = _get_next_active_fruit()
 	current_fruit.set_active(false)
 	
-	var next_fruit = _get_next_active_fruit()
+	var next_fruit: Fruit = _get_next_active_fruit()
 	if next_fruit == null:
 		level_completed.emit()
 		return

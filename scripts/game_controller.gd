@@ -9,7 +9,7 @@ signal level_advanced
 @export var fruit_collections: Array[FruitCollection]
 @export var fruit_controller: FruitController
 @export var level_timer: LevelTimer
-var level_time
+var level_time: float
 
 var is_transitioning: bool = false
 
@@ -71,11 +71,10 @@ func _new_level(is_first_level: bool = false) -> void:
 	fruit_controller.spawn_fruit(random_fruit_stats)
 	fruit_controller.setup_next_fruit_arrows(true)
 	
-	level_timer.game_timer.wait_time = level_time
-	level_timer.start_game_timer()
-	
 	if not is_first_level:
 		level_advanced.emit()
+	
+	level_timer.start_game_timer(level_time)
 
 
 func _get_random_fruit_stats_in_collection(collection: FruitCollection, count: int) -> Array[FruitStats]:

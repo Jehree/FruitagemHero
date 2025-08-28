@@ -29,7 +29,9 @@ func _on_game_start() -> void:
 
 
 func _on_level_advanced() -> void:
-	score += int(level_timer.value)
+	score += 100
+	
+	score += level_timer.get_percentage_time_left()
 	
 	if not error_this_level:
 		score += 50
@@ -38,7 +40,7 @@ func _on_level_advanced() -> void:
 
 
 func _on_slice_success() -> void:
-	score += int(100 / Settings.settings.num_of_fruit_per_level)
+	score += 10
 
 
 func _on_slice_error() -> void:

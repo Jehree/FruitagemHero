@@ -11,4 +11,5 @@ timer_bar_tick_delay = 0.15
 starting_time_per_level = 10.0
 time_per_level_multiplier = 0.9
 num_of_fruit_per_level = 6
+time_back_on_successful_slice = 0.5
 metadata/_custom_type_script = "uid://csah8ujdhr37k"

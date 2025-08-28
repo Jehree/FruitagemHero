@@ -14,7 +14,7 @@ func _ready() -> void:
 	press_any_key_timer.wait_time = Settings.settings.press_any_key_delay
 	press_any_key_timer.timeout.connect(_on_press_any_key_timeout)
 	visibility_changed.connect(_on_visibility_changed)
-	score_tracker.score_updated.connect(func(score: int): score_label.text = str(score))
+	score_tracker.score_updated.connect(func(score: int) -> void: score_label.text = str(score))
 	_on_visibility_changed()
 
 
