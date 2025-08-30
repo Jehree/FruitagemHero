@@ -1,13 +1,14 @@
-[gd_resource type="Resource" script_class="FruitCollection" load_steps=4 format=3 uid="uid://bareg5ouix12n"]
+[gd_resource type="Resource" script_class="FruitCollection" load_steps=5 format=3 uid="uid://bareg5ouix12n"]
 
 [ext_resource type="Script" uid="uid://b1d4al4ji2hlo" path="res://fruit/fruit_stats.gd" id="1_fm0ag"]
 [ext_resource type="Resource" uid="uid://f10q8chcyhgv" path="res://fruit/fruit_types/blueberry.tres" id="2_o12mr"]
 [ext_resource type="Script" uid="uid://dtmc2faw3ah73" path="res://fruit/fruit_collection.gd" id="2_ueh3o"]
+[ext_resource type="Resource" uid="uid://yhxjdr21upup" path="res://fruit/fruit_types/strawberry.tres" id="3_o12mr"]
 
 [resource]
 script = ExtResource("2_ueh3o")
 name = "Berry Good.."
 selection_weight = 0.2
-fruit_whitelist = Array[ExtResource("1_fm0ag")]([ExtResource("2_o12mr")])
+fruit_whitelist = Array[ExtResource("1_fm0ag")]([ExtResource("2_o12mr"), ExtResource("3_o12mr")])
 fruit_blocklist = Array[ExtResource("1_fm0ag")]([])
 metadata/_custom_type_script = "uid://dtmc2faw3ah73"
